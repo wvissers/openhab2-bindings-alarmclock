@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="alarmclock"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Alarm Thing Type -->
+	<thing-type id="alarm">
+		<label>AlarmClock Binding Thing</label>
+		<description>Alarmclock to generate settable events on specific times.</description>
+
+		<channels>
+			<channel id="onTime" typeId="onTime" />
+			<channel id="onHour" typeId="hour" />
+			<channel id="onMinute" typeId="minute" />
+			<channel id="offTime" typeId="offTime" />
+			<channel id="offHour" typeId="hour" />
+			<channel id="offMinute" typeId="minute" />
+			<channel id="status" typeId="status" />
+			<channel id="enabled" typeId="enabled" />
+			<channel id="dayEnabled" typeId="dayEnabled" />
+			<channel id="time" typeId="time" />
+			<channel id="timeZone" typeId="timeZone" />
+			<channel id="dayOfWeek" typeId="dayOfWeek" />
+            <channel id="days" typeId="days" />
+            <channel id="triggered" typeId="triggered" />
+		</channels>
+		<config-description>
+			<parameter name="onHour" type="integer">
+				<label>Hour (0..24) of switching on</label>
+				<description>Hour (0..24) of switching on.</description>
+				<default>12</default>
+			</parameter>
+			<parameter name="onMinute" type="integer">
+				<label>Minute (0..59) of switching on</label>
+				<description>Minute (0..59) of switching on.</description>
+				<default>0</default>
+			</parameter>
+			<parameter name="offHour" type="integer">
+				<label>Hour (0..24) of switching off</label>
+				<description>Hour (0..24) of switching off.</description>
+				<default>13</default>
+			</parameter>
+			<parameter name="offMinute" type="integer">
+				<label>Minute (0..59) of switching off</label>
+				<description>Minute (0..59) of switching off.</description>
+				<default>0</default>
+			</parameter>
+			<parameter name="sunday" type="boolean">
+				<label>Sundays</label>
+				<description>Set true to enable this alarm clock on Sundays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="monday" type="boolean">
+				<label>Mondays</label>
+				<description>Set true to enable this alarm clock on Mondays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="tuesday" type="boolean">
+				<label>Tuesdays</label>
+				<description>Set true to enable this alarm clock on Tuesdays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="wednesday" type="boolean">
+				<label>Wednesdays</label>
+				<description>Set true to enable this alarm clock on Wednesdays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="thursday" type="boolean">
+				<label>Thursdays</label>
+				<description>Set true to enable this alarm clock on Thursdays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="friday" type="boolean">
+				<label>Fridays</label>
+				<description>Set true to enable this alarm clock on Fridays.</description>
+				<default>true</default>
+			</parameter>
+			<parameter name="saturday" type="boolean">
+				<label>Saturdays</label>
+				<description>Set true to enable this alarm clock on Saturdays.</description>
+				<default>true</default>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+</thing:thing-descriptions>

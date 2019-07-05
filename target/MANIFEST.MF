@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.openhab.binding.alarmclock;singleton:=true
+Export-Package: org.openhab.binding.alarmclock,org.openhab.binding.ala
+ rmclock.handler
+Bundle-Name: AlarmClock Binding
+Bundle-Version: 2.4.0.201907031913
+Bundle-ClassPath: .
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: openHAB
+Import-Package: org.eclipse.jdt.annotation;resolution:=optional,org.ec
+ lipse.osgi.service.localization;version="1.1.0",org.eclipse.smarthome
+ .config.core,org.eclipse.smarthome.core.i18n,org.eclipse.smarthome.co
+ re.library.types,org.eclipse.smarthome.core.thing,org.eclipse.smartho
+ me.core.thing.binding,org.eclipse.smarthome.core.thing.binding.builde
+ r,org.eclipse.smarthome.core.thing.type,org.eclipse.smarthome.core.ty
+ pes,org.openhab.binding.alarmclock,org.openhab.binding.alarmclock.han
+ dler,org.osgi.framework;version="1.8.0",org.slf4j
+Service-Component: OSGI-INF/*.xml
+

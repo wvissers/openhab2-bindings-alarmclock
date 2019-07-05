@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="alarmclock"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Timer Thing Type -->
+	<thing-type id="timer">
+		<label>Timer Binding Thing</label>
+		<description>Timer to trigger an event after a specific time.</description>
+
+		<channels>
+			<channel id="maxSeconds" typeId="seconds" />
+			<channel id="currentSeconds" typeId="seconds" />
+			<channel id="status" typeId="status" />
+			<channel id="timeout" typeId="timeout" />
+		</channels>
+		<config-description>
+			<parameter name="maxSeconds" type="integer">
+				<label>Number of seconds (1..3600) to count down</label>
+				<description>Number of seconds (1..3600) after which status will be set to off.</description>
+				<default>12</default>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+</thing:thing-descriptions>

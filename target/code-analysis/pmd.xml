@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.8.1" timestamp="2019-07-03T21:13:55.904">
+<file name="C:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\DayOfWeek.java">
+<violation beginline="39" endline="42" begincolumn="9" endcolumn="9" rule="NonThreadSafeSingleton" ruleset="Design" package="org.openhab.binding.alarmclock.internal" class="DayOfWeek" method="setLocale" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/design.html#NonThreadSafeSingleton" priority="3">
+Singleton is not thread safe
+</violation>
+</file>
+<file name="C:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\SunriseSunset.java">
+<violation beginline="403" endline="403" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.alarmclock.internal" class="SunriseSunset" method="doCalculations" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="2">
+System.out.println is used
+</violation>
+<violation beginline="404" endline="404" begincolumn="13" endcolumn="30" rule="SystemPrintln" ruleset="Java Logging" package="org.openhab.binding.alarmclock.internal" class="SunriseSunset" method="doCalculations" externalInfoUrl="https://pmd.github.io/pmd-5.8.1/pmd-java/rules/java/logging-java.html#SystemPrintln" priority="2">
+System.out.println is used
+</violation>
+</file>
+</pmd>

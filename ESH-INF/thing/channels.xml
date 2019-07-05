@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="alarmclock"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Channel Type -->
+	<channel-type id="hour">
+		<item-type>Number</item-type>
+		<label>Hour (0..23)</label>
+		<description>Hour (0..23) of alarm time</description>
+	</channel-type>
+	<channel-type id="minute">
+		<item-type>Number</item-type>
+		<label>Minute (0..59)</label>
+		<description>Minute (0..59) of alarm time</description>
+	</channel-type>
+	<channel-type id="seconds">
+		<item-type>Number</item-type>
+		<label>Seconds (1..600)</label>
+		<description>Seconds (1..600) after start to set status to false.</description>
+	</channel-type>
+	<channel-type id="status">
+		<item-type>Switch</item-type>
+		<label>Status</label>
+		<description>On or off</description>
+	</channel-type>
+	<channel-type id="enabled">
+		<item-type>Switch</item-type>
+		<label>Enabled (on=yes, off=no)</label>
+		<description>When on, the alarm clock is enabled. When off, no status change will occur ever.</description>
+	</channel-type>
+	<channel-type id="dayEnabled">
+		<item-type>Switch</item-type>
+		<label>Day enabled (on=yes, off=no)</label>
+		<description>When on, the current day of the week is enabled.</description>
+	</channel-type>
+	<channel-type id="timeout">
+		<item-type>Switch</item-type>
+		<label>Timeout (on=yes, off=no)</label>
+		<description>Triggers when timer reaches 0 after counting down.</description>
+	</channel-type>
+	<channel-type id="time">
+		<item-type>String</item-type>
+		<label>Current hh:mm</label>
+		<description>Current system time</description>
+	</channel-type>
+	<channel-type id="timeZone">
+		<item-type>String</item-type>
+		<label>Current time zone</label>
+		<description>Current time zone used by this alarm clock. Retrieved from system default.</description>
+	</channel-type>
+	<channel-type id="dayOfWeek">
+		<item-type>String</item-type>
+		<label>Current day of week</label>
+		<description>Current day of week in current locale.</description>
+	</channel-type>
+	<channel-type id="days">
+		<item-type>String</item-type>
+		<label>Days active</label>
+		<description>Days when the alarm clock is enabled.</description>
+	</channel-type>
+	<channel-type id="onTime">
+		<item-type>String</item-type>
+		<label>Current on-time hh:mm</label>
+		<description>Current on-time</description>
+	</channel-type>
+	<channel-type id="offTime">
+		<item-type>String</item-type>
+		<label>Current off-time hh:mm</label>
+		<description>Current off-time</description>
+	</channel-type>
+	<channel-type id="ontime">
+		<item-type>String</item-type>
+		<label>Current on-time hh:mm</label>
+		<description>Current on-time</description>
+	</channel-type>
+	<channel-type id="offtime">
+		<item-type>String</item-type>
+		<label>Current off-time hh:mm</label>
+		<description>Current off-time</description>
+	</channel-type>
+	<channel-type id="sunrise">
+		<item-type>String</item-type>
+		<label>Current sunrise-time hh:mm</label>
+		<description>Current sunrise-time</description>
+	</channel-type>
+	<channel-type id="sunset">
+		<item-type>String</item-type>
+		<label>Current sunset-time hh:mm</label>
+		<description>Current sunset-time</description>
+	</channel-type>
+	<channel-type id="triggered">
+		<kind>trigger</kind>
+		<label>Alarm triggered</label>
+		<description>Alarm triggered ON or OFF.</description>
+	</channel-type>
+
+</thing:thing-descriptions>

@@ -1,0 +1,14 @@
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\AlarmClockHandlerFactory.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\Constants.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\SystemHelper.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AlarmClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AbstractSunClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\SystemSunClock.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AbstractClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\TimerHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\AlarmClockBindingConstants.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunriseClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\DayOfWeek.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunsetClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunClockHandler.java
+c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\internal\SunriseSunset.java
