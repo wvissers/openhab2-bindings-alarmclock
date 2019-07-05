@@ -26,6 +26,7 @@
 <error line="18" severity="warning" message="There were whitespace characters used for indentation. Please use tab characters instead" source="org.openhab.tools.analysis.checkstyle.OnlyTabIndentationInXmlFilesCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\ESH-INF\thing\timer.xml">
+<error line="17" severity="warning" message="There were whitespace characters used for indentation. Please use tab characters instead" source="org.openhab.tools.analysis.checkstyle.OnlyTabIndentationInXmlFilesCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\META-INF\MANIFEST.MF">
 <error line="11" severity="warning" message="The version of the package org.eclipse.osgi.service.localization should not be specified" source="org.openhab.tools.analysis.checkstyle.ManifestPackageVersionCheck"/>

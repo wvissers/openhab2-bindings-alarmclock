@@ -45,5 +45,49 @@ Todo:
 
 ## Full Example
 
-Todo: _Provide a full usage example based on textual configuration files (*.things, *.items, *.sitemap)._
+Create the thing using the Paper UI. It will show the relevant configuration settings and let you define the switching on/switching off times.
+
+```
+// Clock item definition example
+String FF_Clock_On          "Alarm on [%s]"     <clock>  { channel = "alarmclock:alarm:example:onTime"}
+String FF_Clock_Off         "Alarm off [%s]"    <clock>  { channel = "alarmclock:alarm:example:offTime"}
+Switch FF_Clock_Status      "Status"            <clock>  { channel = "alarmclock:alarm:example:status" } 
+Switch FF_Clock_Enabled     "Enabled"           <clock>  { channel = "alarmclock:alarm:example:enabled" } 
+Switch FF_Clock_DayEnabled  "Active today [%s]" <clock>  { channel = "alarmclock:alarm:example:dayEnabled" } 
+String FF_Clock_Days        "Days active [%s]"  <clock>  { channel = "alarmclock:alarm:example:days" } 
+```
+
+In a sitemap use these items, e.g. as follows:
+
+```
+Text label="Example" icon="clock" {
+    Text     item=GF_Clock_On
+    Text     item=GF_Clock_Off
+    Switch   item=GF_Clock_Status
+    Switch   item=GF_Clock_Enabled
+    Switch   item=GF_Clock_DayEnabled
+    Text     item=GF_Clock_Days
+}
+
+```
+
+The alarmclock has a trigger channel, that triggers ON at the onTime moment, and OFF at the offTime moment. Use this channel in two separate rules to trigger different actions, e.g.
+
+```
+// Switch something on
+rule "Something on"
+    when
+        Channel "alarmclock:alarm:example:triggered" triggered ON
+    then
+        sendCommand(Some_Item, ON)
+end
+
+// Switch something off.
+rule "Something off"
+    when
+        Channel "alarmclock:alarm:example:triggered" triggered OFF
+    then
+        sendCommand(Some_Item, OFF)
+end
+```
 
