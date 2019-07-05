@@ -20,6 +20,7 @@
             <channel id="timeZone" typeId="timeZone" />
             <channel id="dayOfWeek" typeId="dayOfWeek" />
             <channel id="days" typeId="days" />
+            <channel id="triggered" typeId="triggered" />
 		</channels>
 		<config-description>
 			<parameter name="onHour" type="integer">

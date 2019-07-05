@@ -14,6 +14,7 @@
 			<channel id="currentSeconds" typeId="seconds" />
 			<channel id="status" typeId="status" />
 			<channel id="timeout" typeId="timeout" />
+            <channel id="triggered" typeId="triggered" />
 		</channels>
 		<config-description>
 			<parameter name="maxSeconds" type="integer">
