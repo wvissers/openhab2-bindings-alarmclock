@@ -59,12 +59,12 @@ In a sitemap use these items, e.g. as follows:
 
 ```
 Text label="Example" icon="clock" {
-    Text     item=GF_Clock_On
-    Text     item=GF_Clock_Off
-    Switch   item=GF_Clock_Status
-    Switch   item=GF_Clock_Enabled
-    Switch   item=GF_Clock_DayEnabled
-    Text     item=GF_Clock_Days
+    Text     item=FF_Clock_On
+    Text     item=FF_Clock_Off
+    Switch   item=FF_Clock_Status
+    Switch   item=FF_Clock_Enabled
+    Switch   item=FF_Clock_DayEnabled
+    Text     item=FF_Clock_Days
 }
 
 ```
