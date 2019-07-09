@@ -64,6 +64,7 @@
       <message tool="checkstyle" line="333" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
    <message tool="checkstyle" line="336" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
    <message tool="checkstyle" line="338" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
+   <message tool="checkstyle" line="335" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
    </file>
    <file name="org.openhab.binding.alarmclock.handler.AbstractSunClockHandler.java">
       <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>

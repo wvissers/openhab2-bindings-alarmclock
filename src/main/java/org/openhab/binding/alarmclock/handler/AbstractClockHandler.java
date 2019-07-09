@@ -60,12 +60,10 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     // Channel UIDs.
     protected final ChannelUID channelOnTime;
     protected final ChannelUID channelOffTime;
-    protected final ChannelUID channelStatus;
     protected final ChannelUID channelTime;
     protected final ChannelUID channelDayEnabled;
     protected final ChannelUID channelDayOfWeek;
     protected final ChannelUID channelDays;
-    protected final ChannelUID channelTriggered;
 
     // Init delay for startup.
     private int initDelay;
@@ -88,14 +86,12 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
         initDelay = 2;
         daysOfWeek = EnumSet.allOf(DayOfWeek.class);
         currentDayOfWeek = 1; // Init to valid day
-        channelStatus = new ChannelUID(getThing().getUID(), CHANNEL_STATUS);
         channelTime = new ChannelUID(getThing().getUID(), CHANNEL_TIME);
         channelOnTime = new ChannelUID(thing.getUID(), CHANNEL_ONTIME);
         channelOffTime = new ChannelUID(thing.getUID(), CHANNEL_OFFTIME);
         channelDayEnabled = new ChannelUID(thing.getUID(), CHANNEL_DAYENABLED);
         channelDayOfWeek = new ChannelUID(thing.getUID(), CHANNEL_DAYOFWEEK);
         channelDays = new ChannelUID(thing.getUID(), CHANNEL_DAYS);
-        channelTriggered = new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED);
     }
 
     protected boolean handleBaseCommand(ChannelUID channelUID, Command command) {
@@ -114,8 +110,11 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     refreshState();
                     break;
                 case CHANNEL_STATUS:
-                    status = xcommand;
-                    updateState(channelUID, status);
+                    if (status.equals(xcommand)) {
+                        status = xcommand;
+                        updateState(channelUID, status);
+                        triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
+                    }
                     break;
                 case CHANNEL_ENABLED:
                     if (!enabled.equals(xcommand)) {
@@ -201,7 +200,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                 } else {
                     status = (offTime < time) && (onTime > time) ? OnOffType.OFF : OnOffType.ON;
                 }
-                updateState(channelStatus, status);
+                updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
             }
         }
     }
@@ -314,8 +313,8 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     currentMinute = now.get(Calendar.MINUTE);
                     currentDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
                     if (updateAlarmStatus()) {
-                        updateState(channelStatus, status);
-                        triggerChannel(channelTriggered, status.toString());
+                        updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
+                        triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
                     }
                     updateValues();
                     DayOfWeek.setLocale(SystemHelper.getLocale());
