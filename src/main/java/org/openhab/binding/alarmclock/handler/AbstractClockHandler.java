@@ -110,7 +110,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     refreshState();
                     break;
                 case CHANNEL_STATUS:
-                    if (status.equals(xcommand)) {
+                    if (!status.equals(xcommand)) {
                         status = xcommand;
                         updateState(channelUID, status);
                         triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
