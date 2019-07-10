@@ -112,6 +112,7 @@ public class TimerHandler extends BaseThingHandler {
         } else if (command instanceof OnOffType && channelUID.getId().equals(CHANNEL_STATUS)) {
             if (!((OnOffType) command).equals(status)) {
                 if (((OnOffType) command).equals(OnOffType.ON)) {
+                    triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), OnOffType.ON.toString());
                     startTimer();
                 } else {
                     stopTimer();
@@ -157,6 +158,7 @@ public class TimerHandler extends BaseThingHandler {
             if (lastSeconds <= 0) {
                 timeout = OnOffType.ON;
                 updateState(new ChannelUID(thing.getUID(), CHANNEL_TIMEOUT), timeout);
+                triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), OnOffType.OFF.toString());
                 stopTimer();
                 result = true;
             }

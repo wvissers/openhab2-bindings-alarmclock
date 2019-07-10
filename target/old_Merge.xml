@@ -93,6 +93,8 @@
    <file name="org.openhab.binding.alarmclock.handler.TimerHandler.java">
       <message tool="checkstyle" line="134" message="Comment matches to-do format '(TODO)|(FIXME)'." priority="3" rule="TodoCommentCheck" category="style"/>
       <message tool="checkstyle" line="183" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
+   <message tool="checkstyle" line="135" message="Comment matches to-do format '(TODO)|(FIXME)'." priority="3" rule="TodoCommentCheck" category="style"/>
+      <message tool="checkstyle" line="185" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
    </file>
    <file name="org.openhab.binding.alarmclock.internal.AlarmClockHandlerFactory.java">
       <message tool="checkstyle" line="34" message="Name 'SUPPORTED_THING_TYPES_UIDS' must match pattern '^[a-z][a-zA-Z0-9]*$'." priority="3" rule="MemberNameCheck" category="style"/>

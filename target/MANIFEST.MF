@@ -3,7 +3,7 @@ Bundle-SymbolicName: org.openhab.binding.alarmclock;singleton:=true
 Export-Package: org.openhab.binding.alarmclock,org.openhab.binding.ala
  rmclock.handler
 Bundle-Name: AlarmClock Binding
-Bundle-Version: 2.4.0.201907101258
+Bundle-Version: 2.4.0.201907101333
 Bundle-ClassPath: .
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
