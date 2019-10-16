@@ -118,5 +118,7 @@
    <file name="org.openhab.binding.alarmclock.internal.SystemSunClock.java">
       <message tool="checkstyle" line="0" message="File does not end with a newline." priority="3" rule="NewlineAtEndOfFileCheck" category="style"/>
       <message tool="checkstyle" line="55" message="Remove empty line" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+   <message tool="checkstyle" line="59" message="Remove empty line" priority="3" rule="NoEmptyLineSeparatorCheck" category="style"/>
+      <message tool="checkstyle" line="109" message="For periodically executed jobs that do not require a fixed rate scheduleWithFixedDelay should be preferred over scheduleAtFixedRate." priority="2" rule="AvoidScheduleAtFixedRateCheck" category="style"/>
    </file>
 </sca>
