@@ -11,6 +11,9 @@ package org.openhab.binding.alarmclock.internal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.core.library.types.PointType;
 import org.eclipse.smarthome.core.library.types.StringType;
@@ -29,6 +32,7 @@ public class SystemSunClock {
     private TimeZone timeZone;
     private StringType sunrise;
     private StringType sunset;
+    private ScheduledFuture<?> recalculate;
 
     private SystemSunClock() {
         reinit();
@@ -48,7 +52,7 @@ public class SystemSunClock {
     }
 
     /**
-     * Reinitialize the clock when the refreshinterval is exceeded or forced
+     * Reinitialize the clock when the refresh interval is exceeded or forced
      * by change of location or time zone.
      */
     public synchronized void reinit() {
@@ -73,7 +77,7 @@ public class SystemSunClock {
             SunriseSunset sunriseSunset = getSunriseSunset();
             Date currentSunrise = sunriseSunset.getSunrise();
 
-            Calendar calendar = Calendar.getInstance(SystemHelper.getTimeZone()); // creates a new calendar instance
+            Calendar calendar = Calendar.getInstance(timeZone); // creates a new calendar instance
             calendar.setTime(currentSunrise); // assigns calendar to given date
             sunrise = SystemHelper.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
 
@@ -100,4 +104,22 @@ public class SystemSunClock {
         return sunset;
     }
 
+    public void start(ScheduledExecutorService scheduler) {
+        if (recalculate == null) {
+            recalculate = scheduler.scheduleAtFixedRate(new Runnable() {
+                @Override
+                public void run() {
+                    reinit();
+                }
+
+            }, 0, 6, TimeUnit.HOURS);
+        }
+    }
+
+    public void stop() {
+        if (recalculate != null) {
+            recalculate.cancel(true);
+            recalculate = null;
+        }
+    }
 }

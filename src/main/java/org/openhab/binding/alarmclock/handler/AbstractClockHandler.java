@@ -332,7 +332,8 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
             }
         };
 
-        refreshJob = scheduler.scheduleAtFixedRate(runnable, 0, 60, TimeUnit.SECONDS);
+        // We need to refresh faster than one a minute, to avoid missing a switch on or of moment.
+        refreshJob = scheduler.scheduleAtFixedRate(runnable, 0, 55, TimeUnit.SECONDS);
         refreshState();
     }
 

@@ -81,6 +81,7 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
         if (currentLoc == null || !currentLoc.equals(newLoc.toString())) {
             thing.setProperty(PROPERTY_LOCATION, newLoc.toString());
             SystemSunClock.getInstance().reinit();
+            SystemSunClock.getInstance().start(scheduler);
             hourTick();
         }
     }
@@ -102,6 +103,15 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
         updateState(channelOffTime, SystemHelper.formatTime(offHour, offMinute));
         updateState(channelSunrise, SystemSunClock.getInstance().getSunrise());
         updateState(channelSunset, SystemSunClock.getInstance().getSunset());
+    }
+
+    /**
+     * Dispose nicely.
+     */
+    @Override
+    public void dispose() {
+        SystemSunClock.getInstance().stop();
+        super.dispose();
     }
 
 }
