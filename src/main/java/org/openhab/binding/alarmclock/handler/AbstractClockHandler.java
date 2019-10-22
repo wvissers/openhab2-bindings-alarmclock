@@ -49,8 +49,8 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     private final EnumSet<DayOfWeek> daysOfWeek;
 
     // Current status.
-    protected OnOffType status;
-    protected OnOffType enabled;
+    private boolean status;
+    private boolean enabled;
 
     // Channel UIDs.
     protected final ChannelUID channelOnTime;
@@ -70,8 +70,8 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
      */
     public AbstractClockHandler(Thing thing) {
         super(thing);
-        status = OnOffType.OFF;
-        enabled = OnOffType.ON;
+        status = false;
+        enabled = true;
         daysOfWeek = EnumSet.allOf(DayOfWeek.class);
         channelTime = new ChannelUID(getThing().getUID(), CHANNEL_TIME);
         channelOnTime = new ChannelUID(thing.getUID(), CHANNEL_ONTIME);
@@ -97,16 +97,13 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     refreshState();
                     break;
                 case CHANNEL_STATUS:
-                    if (!status.equals(xcommand)) {
-                        status = xcommand;
-                        updateState(channelUID, status);
-                        triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
-                    }
+                    switchStatus(xcommand);
                     break;
                 case CHANNEL_ENABLED:
-                    if (!enabled.equals(xcommand)) {
-                        enabled = xcommand;
-                        updateState(channelUID, enabled);
+                    boolean newEnabled = xcommand.equals(OnOffType.ON);
+                    if (enabled != newEnabled ) {
+                        enabled = newEnabled;
+                        updateState(channelUID, xcommand);
                     }
                     break;
                 default:
@@ -116,10 +113,10 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
         } else if (command instanceof Number || command instanceof RefreshType) {
             switch (channelUID.getId()) {
                 case CHANNEL_STATUS:
-                    updateState(channelUID, status);
+                    updateState(channelUID, status ? OnOffType.ON : OnOffType.OFF);
                     break;
                 case CHANNEL_ENABLED:
-                    updateState(channelUID, enabled);
+                    updateState(channelUID, enabled ? OnOffType.ON : OnOffType.OFF);
                     break;
                 case CHANNEL_DAYENABLED:
                     updateState(channelUID, getDayEnabled());
@@ -140,7 +137,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
      * @return true when enabled.
      */
     protected boolean isEnabled() {
-        return enabled.equals(OnOffType.ON);
+        return enabled;
     }
 
     /**
@@ -176,11 +173,12 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
      * 
      * @param newStatus
      */
-    protected void switchStatus(OnOffType newStatus) {
-        if (!status.equals(newStatus)) {
+    protected void switchStatus(OnOffType statusCommand) {
+        boolean newStatus = statusCommand.equals(OnOffType.ON);
+        if (status != newStatus) {
             status = newStatus;
-            updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
-            triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
+            updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), statusCommand);
+            triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), statusCommand.toString());
         }
     }
 
@@ -195,11 +193,10 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
             CompactTime onTime = new CompactTime(onHour, onMinute);
             CompactTime offTime = new CompactTime(offHour, offMinute);
             if (onTime.isLessThan(offTime)) {
-                status = (onTime.isLessThan(current) && (current.isLessThanOrEqual(offTime))) ? OnOffType.ON : OnOffType.OFF;
+                switchStatus((onTime.isLessThan(current) && (current.isLessThanOrEqual(offTime))) ? OnOffType.ON : OnOffType.OFF);
             } else {
-                status = (offTime.isLessThan(current) && (current.isLessThanOrEqual(onTime))) ? OnOffType.OFF : OnOffType.ON;
+                switchStatus((offTime.isLessThan(current) && (current.isLessThanOrEqual(onTime))) ? OnOffType.OFF : OnOffType.ON);
             }
-            updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);            
         }, this);
 
         // Handle the minute tick by checking if a status change is needed.

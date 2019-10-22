@@ -67,32 +67,32 @@
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AbstractClockHandler.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
-<error line="232" severity="info" message="Remove empty line" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
+<error line="229" severity="info" message="Remove empty line" source="org.openhab.tools.analysis.checkstyle.NoEmptyLineSeparatorCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AbstractSunClockHandler.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
-<error line="20" column="8" severity="info" message="Unused import - org.openhab.binding.alarmclock.internal.SunriseSunset." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 <error line="28" severity="warning" message="First javadoc author should have &quot;Initial contribution&quot; contribution description." source="org.openhab.tools.analysis.checkstyle.AuthorContributionDescriptionCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\AlarmClockHandler.java">
 <error line="35" column="20" severity="info" message="Name &apos;INCREASE_NUMBER&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
 <error line="36" column="20" severity="info" message="Name &apos;DECREASE_NUMBER&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
-<error line="148" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="142" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunClockHandler.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
-<error line="25" severity="warning" message="First javadoc author should have &quot;Initial contribution&quot; contribution description." source="org.openhab.tools.analysis.checkstyle.AuthorContributionDescriptionCheck"/>
-<error line="69" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="12" column="8" severity="info" message="Unused import - java.time.Instant." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="26" severity="warning" message="First javadoc author should have &quot;Initial contribution&quot; contribution description." source="org.openhab.tools.analysis.checkstyle.AuthorContributionDescriptionCheck"/>
+<error line="68" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunriseClockHandler.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 <error line="25" severity="warning" message="First javadoc author should have &quot;Initial contribution&quot; contribution description." source="org.openhab.tools.analysis.checkstyle.AuthorContributionDescriptionCheck"/>
-<error line="63" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="61" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\SunsetClockHandler.java">
 <error line="0" severity="info" message="File does not end with a newline." source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
 <error line="25" severity="warning" message="First javadoc author should have &quot;Initial contribution&quot; contribution description." source="org.openhab.tools.analysis.checkstyle.AuthorContributionDescriptionCheck"/>
-<error line="63" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
+<error line="61" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>
 </file>
 <file name="c:\OH2.4dev\openhab2-master\git\openhab2-addons\addons\binding\org.openhab.binding.alarmclock\src\main\java\org\openhab\binding\alarmclock\handler\TimerHandler.java">
 <error line="135" severity="info" message="Comment matches to-do format &apos;(TODO)|(FIXME)&apos;." source="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck"/>

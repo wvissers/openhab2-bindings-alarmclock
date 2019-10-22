@@ -34,12 +34,10 @@ public class SunsetClockHandler extends AbstractSunClockHandler {
     }
 
     /**
-     * Override in subclasses
+     * Update the sunrise/sunset times.
      */
     @Override
-    protected void hourTick() {
-        super.hourTick();
-        SunriseSunset sunriseSunset = SystemSunClock.getInstance().getSunriseSunset();
+    protected void updateTimeTriggers(SunriseSunset sunriseSunset) {
         Date sunset = sunriseSunset.getSunset();
 
         Calendar calendar = Calendar.getInstance(); // creates a new calendar instance
@@ -64,7 +62,7 @@ public class SunsetClockHandler extends AbstractSunClockHandler {
         // Long running initialization should be done asynchronously in background.
         updateStatus(ThingStatus.ONLINE);
         updateProperties();
-        hourTick();
+        updateTimeTriggers(SystemSunClock.getInstance().getSunriseSunset()) ;
 
         // Note: When initialization can NOT be done set the status with more details for further
         // analysis. See also class ThingStatusDetail for all available status details.

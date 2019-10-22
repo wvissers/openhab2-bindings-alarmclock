@@ -50,10 +50,10 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
     }
 
     /**
-     * This method is called every hour. Override in subclasses if applicable.
+     * This method is called whenever an update is needed in settings related to sunrise/sunset times.
+     * @param sunriseSunset the Sunrise/sunset clock instance.
      */
-    protected void hourTick() {
-        SystemSunClock.getInstance().reCalculate();
+    protected void updateTimeTriggers(SunriseSunset sunriseSunset) {
     }
     
     /**
@@ -61,8 +61,10 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
      */
     protected void initEventHandlers() {
         ClockManager clockManager = ClockManager.getInstance();
-        clockManager.on(Event.HOUR_TICK, (previous, current) -> {
-            hourTick();
+        clockManager.on(Event.DAY_TICK, (previous, current) -> {
+            SystemSunClock sunClock = SystemSunClock.getInstance();
+            sunClock.getSunriseSunset();
+            updateTimeTriggers(sunClock.getSunriseSunset());
         }, this);
         super.initEventHandlers();
     }

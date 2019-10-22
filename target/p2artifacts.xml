@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?artifactRepository version='1.1.0'?>
 <artifacts size='1'>
-  <artifact classifier='osgi.bundle' id='org.openhab.binding.alarmclock' version='2.4.0.201910220614'>
+  <artifact classifier='osgi.bundle' id='org.openhab.binding.alarmclock' version='2.4.0.201910220916'>
     <properties size='5'>
-      <property name='artifact.size' value='49106'/>
-      <property name='download.size' value='49106'/>
+      <property name='artifact.size' value='49157'/>
+      <property name='download.size' value='49157'/>
       <property name='maven-groupId' value='org.openhab.binding'/>
       <property name='maven-artifactId' value='org.openhab.binding.alarmclock'/>
       <property name='maven-version' value='2.4.0-SNAPSHOT'/>

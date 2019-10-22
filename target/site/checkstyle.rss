@@ -399,7 +399,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.handler.SunClockHandler.java">src/main/java/org/openhab/binding/alarmclock/handler/SunClockHandler.java</a>
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   1
@@ -441,7 +441,7 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.handler.AbstractSunClockHandler.java">src/main/java/org/openhab/binding/alarmclock/handler/AbstractSunClockHandler.java</a>
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   1

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <units size='1'>
-  <unit id='org.openhab.binding.alarmclock' version='2.4.0.201910220614' generation='2'>
-    <update id='org.openhab.binding.alarmclock' range='[0.0.0,2.4.0.201910220614)' severity='0'/>
+  <unit id='org.openhab.binding.alarmclock' version='2.4.0.201910220916' generation='2'>
+    <update id='org.openhab.binding.alarmclock' range='[0.0.0,2.4.0.201910220916)' severity='0'/>
     <properties size='5'>
       <property name='org.eclipse.equinox.p2.name' value='AlarmClock Binding'/>
       <property name='org.eclipse.equinox.p2.provider' value='openHAB'/>
@@ -10,11 +10,11 @@
       <property name='maven-version' value='2.4.0-SNAPSHOT'/>
     </properties>
     <provides size='6'>
-      <provided namespace='org.eclipse.equinox.p2.iu' name='org.openhab.binding.alarmclock' version='2.4.0.201910220614'/>
-      <provided namespace='osgi.bundle' name='org.openhab.binding.alarmclock' version='2.4.0.201910220614'/>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.openhab.binding.alarmclock' version='2.4.0.201910220916'/>
+      <provided namespace='osgi.bundle' name='org.openhab.binding.alarmclock' version='2.4.0.201910220916'/>
       <provided namespace='java.package' name='org.openhab.binding.alarmclock' version='0.0.0'/>
       <provided namespace='java.package' name='org.openhab.binding.alarmclock.handler' version='0.0.0'/>
-      <provided namespace='osgi.identity' name='org.openhab.binding.alarmclock' version='2.4.0.201910220614'>
+      <provided namespace='osgi.identity' name='org.openhab.binding.alarmclock' version='2.4.0.201910220916'>
         <properties size='1'>
           <property name='type' value='osgi.bundle'/>
         </properties>
@@ -40,13 +40,13 @@
       <requiredProperties namespace='osgi.ee' match='(&amp;(osgi.ee=JavaSE)(version=1.8))'/>
     </requires>
     <artifacts size='1'>
-      <artifact classifier='osgi.bundle' id='org.openhab.binding.alarmclock' version='2.4.0.201910220614'/>
+      <artifact classifier='osgi.bundle' id='org.openhab.binding.alarmclock' version='2.4.0.201910220916'/>
     </artifacts>
     <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
     <touchpointData size='1'>
       <instructions size='1'>
         <instruction key='manifest'>
-          Bundle-SymbolicName: org.openhab.binding.alarmclock;singleton:=true&#xA;Bundle-Version: 2.4.0.201910220614&#xA;
+          Bundle-SymbolicName: org.openhab.binding.alarmclock;singleton:=true&#xA;Bundle-Version: 2.4.0.201910220916&#xA;
         </instruction>
       </instructions>
     </touchpointData>
