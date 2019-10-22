@@ -107,13 +107,6 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     if (!enabled.equals(xcommand)) {
                         enabled = xcommand;
                         updateState(channelUID, enabled);
-                        /**
-                         * if (enabled.equals(OnOffType.ON)) {
-                         * startAutomaticRefresh();
-                         * } else {
-                         * stopAutomaticRefresh();
-                         * }
-                         */
                     }
                     break;
                 default:

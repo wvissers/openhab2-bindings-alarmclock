@@ -16,6 +16,7 @@ import org.eclipse.smarthome.config.core.Configuration;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
 import org.openhab.binding.alarmclock.internal.SunriseSunset;
+import org.openhab.binding.alarmclock.internal.SystemSunClock;
 
 /**
  * This clock calculates the sunrise and sunset times based on the
@@ -38,7 +39,7 @@ public class SunriseClockHandler extends AbstractSunClockHandler {
     @Override
     protected void hourTick() {
         super.hourTick();
-        SunriseSunset sunriseSunset = getSunriseSunset();
+        SunriseSunset sunriseSunset = SystemSunClock.getInstance().getSunriseSunset();
         Date sunrise = sunriseSunset.getSunrise();
 
         Calendar calendar = Calendar.getInstance(); // creates a new calendar instance

@@ -50,17 +50,6 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
     }
 
     /**
-     * Factory method for sunrise/sunset clock. If the system location is used,
-     * the singleton System sunrise/sunset clock is used. Otherwise, a new
-     * instance is created.
-     *
-     * @return
-     */
-    protected SunriseSunset getSunriseSunset() {
-        return SystemSunClock.getInstance().getSunriseSunset();
-    }
-
-    /**
      * This method is called every hour. Override in subclasses if applicable.
      */
     protected void hourTick() {
