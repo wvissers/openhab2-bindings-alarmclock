@@ -3,7 +3,7 @@ Bundle-SymbolicName: org.openhab.binding.alarmclock;singleton:=true
 Export-Package: org.openhab.binding.alarmclock,org.openhab.binding.ala
  rmclock.handler
 Bundle-Name: AlarmClock Binding
-Bundle-Version: 2.4.0.201910160606
+Bundle-Version: 2.4.0.201910220548
 Bundle-ClassPath: .
 Bundle-ManifestVersion: 2
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -16,6 +16,7 @@ Import-Package: org.eclipse.jdt.annotation;resolution:=optional,org.ec
  me.core.thing.binding,org.eclipse.smarthome.core.thing.binding.builde
  r,org.eclipse.smarthome.core.thing.type,org.eclipse.smarthome.core.ty
  pes,org.openhab.binding.alarmclock,org.openhab.binding.alarmclock.han
- dler,org.osgi.framework;version="1.8.0",org.slf4j
+ dler,org.osgi.framework;version="1.8.0",org.osgi.service.component;ve
+ rsion="1.3.0",org.slf4j
 Service-Component: OSGI-INF/*.xml
 

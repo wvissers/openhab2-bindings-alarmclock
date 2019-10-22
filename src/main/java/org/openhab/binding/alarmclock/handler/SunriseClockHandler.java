@@ -62,7 +62,7 @@ public class SunriseClockHandler extends AbstractSunClockHandler {
         // TODO: Initialize the thing. If done set status to ONLINE to indicate proper working.
         // Long running initialization should be done asynchronously in background.
         updateStatus(ThingStatus.ONLINE);
-        updateValues();
+        updateProperties();
         hourTick();
 
         // Note: When initialization can NOT be done set the status with more details for further
@@ -71,7 +71,9 @@ public class SunriseClockHandler extends AbstractSunClockHandler {
         // as expected. E.g.
         // updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
         // "Can not access device as username and/or password are invalid");
-        startAutomaticRefresh();
+        //startAutomaticRefresh();
+        initEventHandlers();
+
     }
 
 }

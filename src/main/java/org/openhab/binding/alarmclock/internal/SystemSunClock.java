@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.core.library.types.PointType;
 import org.eclipse.smarthome.core.library.types.StringType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The System Sun clock, initialized with system location and time zone.
@@ -32,10 +34,10 @@ public class SystemSunClock {
     private TimeZone timeZone;
     private StringType sunrise;
     private StringType sunset;
-    private ScheduledFuture<?> recalculate;
+    private final Logger logger = LoggerFactory.getLogger(SystemSunClock.class);
 
     private SystemSunClock() {
-        reinit();
+        reCalculate();
     }
 
     private static class SingletonHelper {
@@ -55,7 +57,7 @@ public class SystemSunClock {
      * Reinitialize the clock when the refresh interval is exceeded or forced
      * by change of location or time zone.
      */
-    public synchronized void reinit() {
+    public synchronized void reCalculate() {
 
         // Check if the time zone is changed
         TimeZone newTimeZone = SystemHelper.getTimeZone();
@@ -84,6 +86,9 @@ public class SystemSunClock {
             Date currentSunset = sunriseSunset.getSunset();
             calendar.setTime(currentSunset); // assigns calendar to given date
             sunset = SystemHelper.formatTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+
+            // Log new sunrise/sunset time
+            logger.info("Reinit SystemSunClock, sunrise: {},  sunset: {}.", sunrise, sunset);
         }
     }
 
@@ -102,24 +107,5 @@ public class SystemSunClock {
 
     public StringType getSunset() {
         return sunset;
-    }
-
-    public void start(ScheduledExecutorService scheduler) {
-        if (recalculate == null) {
-            recalculate = scheduler.scheduleAtFixedRate(new Runnable() {
-                @Override
-                public void run() {
-                    reinit();
-                }
-
-            }, 0, 6, TimeUnit.HOURS);
-        }
-    }
-
-    public void stop() {
-        if (recalculate != null) {
-            recalculate.cancel(true);
-            recalculate = null;
-        }
     }
 }

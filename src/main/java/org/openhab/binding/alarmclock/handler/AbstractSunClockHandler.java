@@ -15,6 +15,8 @@ import org.eclipse.smarthome.core.library.types.PointType;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.types.Command;
+import org.openhab.binding.alarmclock.internal.ClockManager;
+import org.openhab.binding.alarmclock.internal.ClockManager.Event;
 import org.openhab.binding.alarmclock.internal.SunriseSunset;
 import org.openhab.binding.alarmclock.internal.SystemHelper;
 import org.openhab.binding.alarmclock.internal.SystemSunClock;
@@ -59,30 +61,37 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
     }
 
     /**
-     * Override in subclasses
+     * This method is called every hour. Override in subclasses if applicable.
      */
-    @Override
     protected void hourTick() {
-        super.hourTick();
-
-        refreshState();
+        SystemSunClock.getInstance().reCalculate();
     }
-
+    
+    /**
+     * Initialize the time triggers by registering the basic event handlers with the clock manager.
+     */
+    protected void initEventHandlers() {
+        ClockManager clockManager = ClockManager.getInstance();
+        clockManager.on(Event.HOUR_TICK, (previous, current) -> {
+            hourTick();
+        }, this);
+        super.initEventHandlers();
+    }
+    
     /**
      * Update values and properties.
      */
     @SuppressWarnings("null")
     @Override
-    protected void updateValues() {
-        super.updateValues();
+    protected void updateProperties() {
+        super.updateProperties();
         Thing thing = getThing();
         PointType newLoc = SystemHelper.getLocation();
         String currentLoc = thing.getProperties().get(PROPERTY_LOCATION);
         if (currentLoc == null || !currentLoc.equals(newLoc.toString())) {
             thing.setProperty(PROPERTY_LOCATION, newLoc.toString());
-            SystemSunClock.getInstance().reinit();
-            SystemSunClock.getInstance().start(scheduler);
-            hourTick();
+            SystemSunClock.getInstance().reCalculate();
+            refreshState();
         }
     }
 
@@ -103,15 +112,6 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
         updateState(channelOffTime, SystemHelper.formatTime(offHour, offMinute));
         updateState(channelSunrise, SystemSunClock.getInstance().getSunrise());
         updateState(channelSunset, SystemSunClock.getInstance().getSunset());
-    }
-
-    /**
-     * Dispose nicely.
-     */
-    @Override
-    public void dispose() {
-        SystemSunClock.getInstance().stop();
-        super.dispose();
     }
 
 }

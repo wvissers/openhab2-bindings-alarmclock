@@ -8,11 +8,10 @@
  */
 package org.openhab.binding.alarmclock.internal;
 
-import static org.openhab.binding.alarmclock.AlarmClockBindingConstants.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.openhab.binding.alarmclock.AlarmClockBindingConstants.*;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
@@ -22,6 +21,7 @@ import org.openhab.binding.alarmclock.handler.SunClockHandler;
 import org.openhab.binding.alarmclock.handler.SunriseClockHandler;
 import org.openhab.binding.alarmclock.handler.SunsetClockHandler;
 import org.openhab.binding.alarmclock.handler.TimerHandler;
+import org.osgi.service.component.ComponentContext;
 
 /**
  * The {@link AlarmClockHandlerFactory} is responsible for creating things and thing
@@ -46,7 +46,29 @@ public class AlarmClockHandlerFactory extends BaseThingHandlerFactory {
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
         return SUPPORTED_THING_TYPES_UIDS.contains(thingTypeUID);
     }
+    
+    /**
+     * Activate the binding.
+     */
+    @Override
+    public void activate(ComponentContext componentContext) {
+        super.activate(componentContext);
+        // Create the ClockManager, but delay initialization until the first ThingHandler is initialized,
+        // because otherwise startup will not succeed, since the system localization service is not availabe.
+        ClockManager.getInstance();
+    }
+    
+    /**
+     * Deactivate the binding.
+     */
+    @Override
+    public void deactivate(ComponentContext componentContext) {
+        ClockManager.getInstance().stop();
+        super.deactivate(componentContext);
+    }
 
+    
+    
     @Override
     protected ThingHandler createHandler(Thing thing) {
 

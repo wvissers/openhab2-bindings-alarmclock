@@ -13,16 +13,14 @@ package org.openhab.binding.alarmclock.internal;
  *
  * @author Wim Vissers - Initial contribution
  */
-public class Constants {
+public interface Constants {
 
+    // Property names
     public static final String PROPERTY_LOCALE = "locale";
     public static final String PROPERTY_TIMEZONE = "timezone";
     public static final String PROPERTY_LOCATION = "location";
 
-    /**
-     * Private constructor. It is never instantiated.
-     */
-    private Constants() {
-    }
+    // ClockManager settings
+    public static final int TIME_RESOLUTION_SECONDS = 30; // Should be < 60 seconds.
 
 }

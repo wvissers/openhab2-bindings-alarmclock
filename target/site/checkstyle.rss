@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2019 openHAB.org</copyright>
     <item>
-      <title>File: 29,
+      <title>File: 32,
              Errors: 0,
-             Warnings: 15,
-             Infos: 44
+             Warnings: 18,
+             Infos: 52
       </title>
             <link>${project.url}/checkstyle.html</link>
       <description>
@@ -161,10 +161,10 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.handler.AbstractClockHandler.java">src/main/java/org/openhab/binding/alarmclock/handler/AbstractClockHandler.java</a>
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -256,6 +256,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.internal.EventEmitter.java">src/main/java/org/openhab/binding/alarmclock/internal/EventEmitter.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#OSGI-INF.AlarmClockHandlerFactory.xml">OSGI-INF/AlarmClockHandlerFactory.xml</a>
                 </td>
                 <td>
@@ -263,6 +277,34 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.internal.CompactTime.java">src/main/java/org/openhab/binding/alarmclock/internal/CompactTime.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.internal.ClockManager.java">src/main/java/org/openhab/binding/alarmclock/internal/ClockManager.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   0
@@ -290,7 +332,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  2
+                  3
                 </td>
                 <td>
                   0
@@ -427,10 +469,10 @@ under the License.
                   <a href="${project.url}/checkstyle.html#src.main.java.org.openhab.binding.alarmclock.internal.SystemSunClock.java">src/main/java/org/openhab/binding/alarmclock/internal/SystemSunClock.java</a>
                 </td>
                 <td>
-                  2
+                  5
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0

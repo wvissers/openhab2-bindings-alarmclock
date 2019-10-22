@@ -104,9 +104,6 @@ public class AlarmClockHandler extends AbstractClockHandler {
                     offMinute = getNewValue(offMinute, x, 59);
                     updateState(channelUID, new DecimalType(offMinute));
                     break;
-                case CHANNEL_TIME:
-                    updateState(channelUID, getNowString());
-                    break;
                 case CHANNEL_STATUS:
                     updateState(channelUID, status);
                     break;
@@ -151,7 +148,7 @@ public class AlarmClockHandler extends AbstractClockHandler {
         // TODO: Initialize the thing. If done set status to ONLINE to indicate proper working.
         // Long running initialization should be done asynchronously in background.
         updateStatus(ThingStatus.ONLINE);
-        updateValues();
+        updateProperties();
 
         // Note: When initialization can NOT be done set the status with more details for further
         // analysis. See also class ThingStatusDetail for all available status details.
@@ -159,6 +156,7 @@ public class AlarmClockHandler extends AbstractClockHandler {
         // as expected. E.g.
         // updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
         // "Can not access device as username and/or password are invalid");
-        startAutomaticRefresh();
+        //startAutomaticRefresh();
+        initEventHandlers();
     }
 }

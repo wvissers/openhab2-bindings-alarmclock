@@ -11,10 +11,7 @@ package org.openhab.binding.alarmclock.handler;
 import static org.openhab.binding.alarmclock.AlarmClockBindingConstants.*;
 import static org.openhab.binding.alarmclock.internal.Constants.*;
 
-import java.util.Calendar;
 import java.util.EnumSet;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.eclipse.smarthome.config.core.Configuration;
 import org.eclipse.smarthome.core.library.types.OnOffType;
@@ -24,6 +21,9 @@ import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.eclipse.smarthome.core.types.RefreshType;
+import org.openhab.binding.alarmclock.internal.ClockManager;
+import org.openhab.binding.alarmclock.internal.ClockManager.Event;
+import org.openhab.binding.alarmclock.internal.CompactTime;
 import org.openhab.binding.alarmclock.internal.DayOfWeek;
 import org.openhab.binding.alarmclock.internal.SystemHelper;
 import org.slf4j.Logger;
@@ -45,11 +45,6 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     protected int offHour;
     protected int offMinute;
 
-    // Current time.
-    private int currentHour;
-    private int currentMinute;
-    private int currentDayOfWeek;
-
     // Enabled days of week.
     private final EnumSet<DayOfWeek> daysOfWeek;
 
@@ -65,13 +60,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     protected final ChannelUID channelDayOfWeek;
     protected final ChannelUID channelDays;
 
-    // Init delay for startup.
-    private int initDelay;
-
     protected Logger logger = LoggerFactory.getLogger(AlarmClockHandler.class);
-
-    // Scheduler
-    ScheduledFuture<?> refreshJob;
 
     /**
      * There is no default constructor. We have to define a
@@ -83,9 +72,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
         super(thing);
         status = OnOffType.OFF;
         enabled = OnOffType.ON;
-        initDelay = 2;
         daysOfWeek = EnumSet.allOf(DayOfWeek.class);
-        currentDayOfWeek = 1; // Init to valid day
         channelTime = new ChannelUID(getThing().getUID(), CHANNEL_TIME);
         channelOnTime = new ChannelUID(thing.getUID(), CHANNEL_ONTIME);
         channelOffTime = new ChannelUID(thing.getUID(), CHANNEL_OFFTIME);
@@ -101,7 +88,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
             OnOffType xcommand = (OnOffType) command;
             switch (channelUID.getId()) {
                 case CHANNEL_DAYENABLED:
-                    DayOfWeek dow = DayOfWeek.getFromCalendar(currentDayOfWeek);
+                    DayOfWeek dow = ClockManager.getInstance().getLastTime().getDayOfWeek();
                     if (xcommand.equals(OnOffType.ON)) {
                         daysOfWeek.add(dow);
                     } else {
@@ -120,11 +107,13 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
                     if (!enabled.equals(xcommand)) {
                         enabled = xcommand;
                         updateState(channelUID, enabled);
-                        if (enabled.equals(OnOffType.ON)) {
-                            startAutomaticRefresh();
-                        } else {
-                            stopAutomaticRefresh();
-                        }
+                        /**
+                         * if (enabled.equals(OnOffType.ON)) {
+                         * startAutomaticRefresh();
+                         * } else {
+                         * stopAutomaticRefresh();
+                         * }
+                         */
                     }
                     break;
                 default:
@@ -133,9 +122,6 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
             }
         } else if (command instanceof Number || command instanceof RefreshType) {
             switch (channelUID.getId()) {
-                case CHANNEL_TIME:
-                    updateState(channelUID, getNowString());
-                    break;
                 case CHANNEL_STATUS:
                     updateState(channelUID, status);
                     break;
@@ -156,12 +142,12 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     }
 
     /**
-     * Get current time as String.
-     *
-     * @return
+     * Determine if the alarm is currently enabled.
+     * 
+     * @return true when enabled.
      */
-    protected StringType getNowString() {
-        return SystemHelper.formatTime(currentHour, currentMinute);
+    protected boolean isEnabled() {
+        return enabled.equals(OnOffType.ON);
     }
 
     /**
@@ -170,7 +156,7 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
      * @return true if today is enabled.
      */
     protected boolean isDayEnabled() {
-        return daysOfWeek.contains(DayOfWeek.getFromCalendar(currentDayOfWeek));
+        return daysOfWeek.contains(ClockManager.getInstance().getLastTime().getDayOfWeek());
     }
 
     /**
@@ -183,56 +169,81 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     }
 
     /**
-     * Determine initial state. Will be delayed to avoid race
-     * condition at startup.
+     * Clean up resources when removing handler.
      */
-    private void initState() {
-        if (initDelay != 0) {
-            initDelay--;
-            if (initDelay == 0) {
-                // Determine initial state by comparing minutes since midnight
-                Calendar now = Calendar.getInstance(SystemHelper.getTimeZone());
-                int time = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
-                int onTime = onHour * 60 + onMinute;
-                int offTime = offHour * 60 + offMinute;
-                if (onTime < offTime) {
-                    status = (onTime < time) && (offTime > time) ? OnOffType.ON : OnOffType.OFF;
-                } else {
-                    status = (offTime < time) && (onTime > time) ? OnOffType.OFF : OnOffType.ON;
-                }
-                updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
-            }
+    @Override
+    public void handleRemoval() {
+        // Remove every trigger from the clock manager.
+        ClockManager.getInstance().remove(this);
+        super.handleRemoval();
+    }
+
+    /**
+     * Change the status.
+     * 
+     * @param newStatus
+     */
+    protected void switchStatus(OnOffType newStatus) {
+        if (!status.equals(newStatus)) {
+            status = newStatus;
+            updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
+            triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
         }
     }
 
     /**
-     * Check on and off times with current time. If the status
-     * changed from on to off or vice versa, return true.
-     *
-     * @return
+     * Initialize the time triggers by registering the basic event handlers with the clock manager.
      */
-    private boolean updateAlarmStatus() {
-        boolean result = false;
-        if (initDelay != 0) {
-            initState();
-        }
-        if (isDayEnabled()) {
-            if (currentHour == onHour && currentMinute == onMinute && status.equals(OnOffType.OFF)) {
-                status = OnOffType.ON;
-                result = true;
+    protected void initEventHandlers() {
+        ClockManager clockManager = ClockManager.getInstance();
+        
+        // Init the alarm state.
+        clockManager.once(Event.MINUTE_TICK, (previous, current) -> {
+            CompactTime onTime = new CompactTime(onHour, onMinute);
+            CompactTime offTime = new CompactTime(offHour, offMinute);
+            if (onTime.isLessThan(offTime)) {
+                status = (onTime.isLessThan(current) && (current.isLessThanOrEqual(offTime))) ? OnOffType.ON : OnOffType.OFF;
+            } else {
+                status = (offTime.isLessThan(current) && (current.isLessThanOrEqual(onTime))) ? OnOffType.OFF : OnOffType.ON;
             }
-            if (currentHour == offHour && currentMinute == offMinute && status.equals(OnOffType.ON)) {
-                status = OnOffType.OFF;
-                result = true;
+            updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);            
+        }, this);
+
+        // Handle the minute tick by checking if a status change is needed.
+        clockManager.on(Event.MINUTE_TICK, (previous, current) -> {
+            if (isEnabled() && isDayEnabled()) {
+                // The day is enabled and the alarm is enabled.
+                CompactTime onTime = new CompactTime(onHour, onMinute);
+                CompactTime offTime = new CompactTime(offHour, offMinute);
+                if (onTime.isSwitchTime(previous, current)) {
+                    switchStatus(OnOffType.ON);
+                }
+                if (offTime.isSwitchTime(previous, current)) {
+                    switchStatus(OnOffType.OFF);
+                }
+                refreshState();
+                updateState(channelTime, SystemHelper.formatTime(current.getHour(), current.getMinute()));
             }
-        }
-        return result;
+
+        }, this);
+
+        // Make sure the clock manager is started. Subsequent calls to this method has no effect.
+        //clockManager.start(scheduler);
+        
+        // After initialization, refresh channels that may have changed.
+        refreshState();
     }
 
     @Override
     public void initialize() {
+
         logger.debug("Initializing AbstractClock handler.");
         Configuration config = getThing().getConfiguration();
+        
+        // First remove handlers that may exist (when changing settings).
+        ClockManager clockManager = ClockManager.getInstance();
+        clockManager.init(scheduler);
+        clockManager.remove(this);
 
         // Configure days of week to enable the clock. The
         // daysOfWeek is initialized with all days. By
@@ -248,13 +259,10 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
         // 'Unset' properties to reinitialize
         getThing().setProperty(PROPERTY_LOCALE, "");
         getThing().setProperty(PROPERTY_TIMEZONE, "");
-
-        // Set/update the properties
-        // updateValues();
     }
 
     @SuppressWarnings("null")
-    protected void updateValues() {
+    protected void updateProperties() {
         // Set/update the things properties
         Thing thing = getThing();
         thing.setProperty(Thing.PROPERTY_VENDOR, "DWG software");
@@ -279,12 +287,6 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
     }
 
     /**
-     * Override in subclasses
-     */
-    protected void hourTick() {
-    }
-
-    /**
      * Refresh the state of channels that may have changed by
      * (re-)initialization.
      */
@@ -299,57 +301,14 @@ public abstract class AbstractClockHandler extends BaseThingHandler {
         updateState(channelDays, new StringType(b.toString()));
         updateState(channelDayEnabled, getDayEnabled());
     }
-
-    /**
-     * Check every 60 seconds if one of the alarm times is reached.
-     */
-    protected void startAutomaticRefresh() {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Calendar now = Calendar.getInstance(SystemHelper.getTimeZone());
-                    currentHour = now.get(Calendar.HOUR_OF_DAY);
-                    currentMinute = now.get(Calendar.MINUTE);
-                    currentDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-                    if (updateAlarmStatus()) {
-                        updateState(new ChannelUID(getThing().getUID(), CHANNEL_STATUS), status);
-                        triggerChannel(new ChannelUID(thing.getUID(), CHANNEL_TRIGGERED), status.toString());
-                    }
-                    updateValues();
-                    DayOfWeek.setLocale(SystemHelper.getLocale());
-                    updateState(channelTime, getNowString());
-                    updateState(channelDayOfWeek,
-                            new StringType(DayOfWeek.getFromCalendar(currentDayOfWeek).getShortName()));
-
-                    if (currentMinute == 0) {
-                        hourTick();
-                        refreshState();
-                    }
-                } catch (Exception e) {
-                    logger.debug("Exception occurred during execution: {}", e.getMessage(), e);
-                }
-            }
-        };
-
-        // We need to refresh faster than one a minute, to avoid missing a switch on or of moment.
-        refreshJob = scheduler.scheduleAtFixedRate(runnable, 0, 55, TimeUnit.SECONDS);
-        refreshState();
-    }
-
-    protected void stopAutomaticRefresh() {
-        if (refreshJob != null) {
-            refreshJob.cancel(true);
-            refreshJob = null;
-        }
-    }
-
+    
     /**
      * Dispose off the refreshJob nicely.
      */
     @Override
     public void dispose() {
-        stopAutomaticRefresh();
+        //stopAutomaticRefresh();
+       // ClockManager.getInstance().dispose();
     }
 
 }

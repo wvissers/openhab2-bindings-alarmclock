@@ -105,5 +105,4 @@ public enum DayOfWeek {
         }
         throw new IllegalArgumentException("No DayOfWeek for value " + value);
     }
-
 }
