@@ -61,9 +61,9 @@ public class AbstractSunClockHandler extends AbstractClockHandler {
      */
     protected void initEventHandlers() {
         ClockManager clockManager = ClockManager.getInstance();
-        clockManager.on(Event.DAY_TICK, (previous, current) -> {
+        clockManager.on(Event.SIX_HOUR_TICK, (previous, current) -> {
             SystemSunClock sunClock = SystemSunClock.getInstance();
-            sunClock.getSunriseSunset();
+            sunClock.reCalculate();
             updateTimeTriggers(sunClock.getSunriseSunset());
         }, this);
         super.initEventHandlers();
